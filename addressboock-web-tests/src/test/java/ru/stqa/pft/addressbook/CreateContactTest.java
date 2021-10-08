@@ -2,7 +2,6 @@ package ru.stqa.pft.addressbook;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
-import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -27,26 +26,26 @@ public class CreateContactTest {
     wd.findElement(By.linkText("home page")).click();
   }
 
-  private void fillContactForm() {
+  private void fillContactForm(ContactData contactData) {
     wd.findElement(By.linkText("add new")).click();
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys("test");
+    wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
     wd.findElement(By.name("middlename")).click();
     wd.findElement(By.name("middlename")).clear();
-    wd.findElement(By.name("middlename")).sendKeys("test 2");
+    wd.findElement(By.name("middlename")).sendKeys(contactData.getMiddlename());
     wd.findElement(By.name("lastname")).click();
     wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys("test 3");
+    wd.findElement(By.name("lastname")).sendKeys(contactData.getLastname());
     wd.findElement(By.name("home")).click();
     wd.findElement(By.name("home")).clear();
-    wd.findElement(By.name("home")).sendKeys("123");
+    wd.findElement(By.name("home")).sendKeys(contactData.getHome_phone());
     wd.findElement(By.name("mobile")).click();
     wd.findElement(By.name("mobile")).clear();
-    wd.findElement(By.name("mobile")).sendKeys("456");
+    wd.findElement(By.name("mobile")).sendKeys(contactData.getMobile_phone());
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys("test@mail.ru");
+    wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 
@@ -61,7 +60,7 @@ public class CreateContactTest {
 
   @Test
   public void testUntitledTestCase() throws Exception {
-    fillContactForm();
+    fillContactForm(new ContactData("test", "test1", "test2", "259789", "89654561122", "test@mail.ru"));
     goToHomePage();
     logout();
   }
