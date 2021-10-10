@@ -24,8 +24,9 @@ public class ContactHelper extends BaseHelper{
         click(By.linkText("add new"));
     }
 
-    public void selectContact(String id) {
-        click(By.id(id));
+    public void selectContact() {
+        //click(By.id(id));
+        click(By.name("selected[]"));
     }
 
     public void initContactModification() {
