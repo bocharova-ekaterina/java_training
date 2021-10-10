@@ -18,4 +18,8 @@ public class NavigationHelper extends BaseHelper{
     }
 
     public void returnToGroupPage() { click(By.linkText("group page")); }
+
+    public void OpenIndexPage() {  wd.get("https://localhost/addressbook/"); }
+
+
 }
