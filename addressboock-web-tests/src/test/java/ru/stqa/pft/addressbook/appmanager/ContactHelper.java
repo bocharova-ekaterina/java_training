@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 public class ContactHelper extends BaseHelper{
 
@@ -40,5 +41,14 @@ public class ContactHelper extends BaseHelper{
     public void deleteContact() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
+    }
+
+    public boolean isThereContacts() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(ContactData contact) {
+        addNewContactPage();
+        fillContactForm(contact);
     }
 }
