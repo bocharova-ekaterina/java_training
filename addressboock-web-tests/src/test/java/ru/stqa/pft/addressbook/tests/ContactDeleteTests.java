@@ -10,11 +10,11 @@ public class ContactDeleteTests extends TestBase{
     @Test
     public void testContactDelete(){
         app.getNavigationHelper().OpenIndexPage();
+        int before=app.getContactHelper().getContactCount();
         if(! app.getContactHelper().isThereContacts()){
             app.getContactHelper().createContact(new ContactData("test", "test1", "test2", "259789", "89654561122", "test@mail.ru"));
             app.getNavigationHelper().goToHomePage();
         }
-        int before=app.getContactHelper().getContactCount();
         app.getContactHelper().selectContact();
         app.getContactHelper().deleteContact();
         int after=app.getContactHelper().getContactCount();
