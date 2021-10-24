@@ -51,4 +51,8 @@ public class ContactHelper extends BaseHelper{
         addNewContactPage();
         fillContactForm(contact);
     }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
 }
