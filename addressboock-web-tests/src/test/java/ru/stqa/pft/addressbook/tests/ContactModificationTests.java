@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.util.HashSet;
+
 public class ContactModificationTests extends TestBase{
 
     @Test
@@ -22,6 +24,9 @@ public class ContactModificationTests extends TestBase{
         app.getNavigationHelper().goToHomePage();
         int after=app.getContactHelper().getContactCount();
         Assert.assertEquals(after, before);
+
+
+
 
     }
 }
