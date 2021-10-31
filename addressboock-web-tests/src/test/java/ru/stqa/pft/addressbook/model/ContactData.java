@@ -3,34 +3,13 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private int id;
+    private int id=Integer.MAX_VALUE;
     private String firstname;
     private String middlename;
     private String lastname;
     private String home_phone;
     private String mobile_phone;
     private String email;
-
-    public ContactData(String firstname, String middlename, String lastname, String home_phone, String mobile_phone, String email){
-       this.id=Integer.MAX_VALUE;
-       this.firstname=firstname;
-       this.lastname=lastname;
-       this.middlename=middlename;
-       this.home_phone=home_phone;
-       this.mobile_phone = mobile_phone;
-       this.email=email;
-    }
-
-
-    public ContactData(int id, String firstname, String middlename, String lastname, String home_phone, String mobile_phone, String email){
-        this.id=id;
-        this.firstname=firstname;
-        this.lastname=lastname;
-        this.middlename=middlename;
-        this.home_phone=home_phone;
-        this.mobile_phone = mobile_phone;
-        this.email=email;
-    }
 
     public String getFirstname(){return firstname;}
     public String getLastname(){return lastname;}
@@ -39,8 +18,40 @@ public class ContactData {
     public String getMobile_phone(){return mobile_phone;}
     public String getEmail(){return email;}
     public int getId(){return id;}
-    public void setId(int id) {
+
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public ContactData withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public ContactData withMiddlename(String middlename) {
+        this.middlename = middlename;
+        return this;
+    }
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withHome_phone(String home_phone) {
+        this.home_phone = home_phone;
+        return this;
+    }
+
+    public ContactData withMobile_phone(String mobile_phone) {
+        this.mobile_phone = mobile_phone;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     @Override

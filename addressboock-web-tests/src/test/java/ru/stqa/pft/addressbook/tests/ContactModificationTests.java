@@ -1,39 +1,41 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions(){
-        app.getNavigationHelper().OpenIndexPage();
+        app.goTo().OpenIndexPage();
         if(! app.getContactHelper().isThereContacts()){
-            app.getContactHelper().createContact(new ContactData("test", "test1", "test2", "259789", "89654561122", "test@mail.ru"));
-            app.getNavigationHelper().goToHomePage();
+            app.getContactHelper().createContact(new ContactData().withFirstname("test").
+                    withLastname("test2").withMiddlename("test2").withHome_phone("259789").
+                    withMobile_phone("89654561122").withEmail("test@mail.ru"));
+            app.goTo().goToHomePage();
         }
     }
 
     @Test
     public void contactModificationTest(){
         List<ContactData> before= app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size() -1);
+        int index=before.size() -1;
+        app.getContactHelper().selectContact(index);
         app.getContactHelper().initContactModification();
-        ContactData contact=new ContactData(before.get(before.size()-1).getId(), "test", "test1", "test2", "259789", "89654561122", "test@mail.ru");
+        ContactData contact=new ContactData().withId(before.get(index).getId()).withFirstname("test").
+                withLastname("test2").withMiddlename("test1").withHome_phone("259789").
+                withMobile_phone("89654561122").withEmail("test@mail.ru");
         app.getContactHelper().fillContactForm(contact);
         app.getContactHelper().updateContact();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
         List<ContactData> after= app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
-        before.remove(before.size()-1);
+        before.remove(index);
         before.add(contact);
 
         Comparator<? super ContactData> byId =(g1, g2)->Integer.compare(g1.getId(), g2.getId());
