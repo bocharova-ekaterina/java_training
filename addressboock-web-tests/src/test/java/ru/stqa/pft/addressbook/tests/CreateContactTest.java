@@ -13,7 +13,7 @@ public class CreateContactTest extends TestBase {
   @Test
   public void CreateContactTest() throws Exception {
     List<ContactData> before= app.getContactHelper().getContactList();
-    ContactData contact =new ContactData(before.get(before.size()-1).getId(), "test", null, "test2", null, null, null);
+    ContactData contact =new ContactData(before.get(before.size()).getId(), "test", null, "test2", null, null, null);
     app.getContactHelper().createContact(contact);
     app.getNavigationHelper().goToHomePage();
     List<ContactData> after= app.getContactHelper().getContactList();
