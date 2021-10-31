@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -12,13 +13,17 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase{
 
-    @Test
-    public void contactModificationTest(){
+    @BeforeMethod
+    public void ensurePreconditions(){
         app.getNavigationHelper().OpenIndexPage();
         if(! app.getContactHelper().isThereContacts()){
             app.getContactHelper().createContact(new ContactData("test", "test1", "test2", "259789", "89654561122", "test@mail.ru"));
             app.getNavigationHelper().goToHomePage();
         }
+    }
+
+    @Test
+    public void contactModificationTest(){
         List<ContactData> before= app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(before.size() -1);
         app.getContactHelper().initContactModification();
