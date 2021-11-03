@@ -6,13 +6,14 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.List;
+import java.util.Set;
 
 public class ContactDeleteTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().OpenIndexPage();
-        if(! app.getContactHelper().isThereContacts()){
+        if(app.getContactHelper().all().size()==0){
             app.getContactHelper().createContact(new ContactData().withFirstname("test").
                     withLastname("test1").withMiddlename("test2").withHome_phone("259789").
                     withMobile_phone("89654561122").withEmail("test@mail.ru"));
@@ -22,14 +23,13 @@ public class ContactDeleteTests extends TestBase{
 
     @Test
     public void testContactDelete(){
-        List<ContactData> before= app.getContactHelper().getContactList();
-        int index=before.size() -1;
-        app.getContactHelper().selectContact(index);
-        app.getContactHelper().deleteContact();
+        Set<ContactData> before= app.getContactHelper().all();
+        ContactData deletedContact=before.iterator().next();
+        app.getContactHelper().deleteContact(deletedContact);
         app.goTo().OpenIndexPage();
-        List<ContactData> after= app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), index);
-        before.remove(index);
+        Set<ContactData> after= app.getContactHelper().all();
+        Assert.assertEquals(after.size(), before.size() -1);
+        before.remove(deletedContact);
         Assert.assertEquals(before, after);
     }
 }
