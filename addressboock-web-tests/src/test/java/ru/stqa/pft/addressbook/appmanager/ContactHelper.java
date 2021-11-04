@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,6 @@ public class ContactHelper extends BaseHelper{
     public void initContactModification(ContactData contact) {
         selectContactById(contact.getId());
         click(By.xpath("//img[@alt='Edit']"));
-
     }
 
     public void initContactModificationById(int id) {
@@ -66,6 +67,7 @@ public class ContactHelper extends BaseHelper{
     public void deleteContact(ContactData contact) {
         selectContactById(contact.getId());
         deleteContact();
+        contactCache=null;
     }
 
     public boolean isThereContacts() {
@@ -75,13 +77,15 @@ public class ContactHelper extends BaseHelper{
     public void createContact(ContactData contact) {
         addNewContactPage();
         fillContactForm(contact);
+        contactCache=null;
     }
 
-    public void modify(ContactData contact) {
+    public void modifyContact(ContactData contact) {
         selectContactById(contact.getId());
         initContactModificationById(contact.getId());
         fillContactForm(contact);
         updateContact();
+        contactCache=null;
     }
 
 
@@ -98,7 +102,12 @@ public class ContactHelper extends BaseHelper{
         return contacts;
     }
 
+    private Contacts contactCache=null;
+
     public Contacts all() {
+        if(contactCache!=null){
+            return new Contacts (contactCache);
+        }
         Contacts contacts=new Contacts();
         List<WebElement> elements=wd.findElements(By.name("entry"));
         for(WebElement element:elements){
