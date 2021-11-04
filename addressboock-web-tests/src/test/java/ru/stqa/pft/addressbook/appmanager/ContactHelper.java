@@ -5,11 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 public class ContactHelper extends BaseHelper{
 
@@ -46,6 +44,14 @@ public class ContactHelper extends BaseHelper{
     public void initContactModification(ContactData contact) {
         selectContactById(contact.getId());
         click(By.xpath("//img[@alt='Edit']"));
+
+    }
+
+    public void initContactModificationById(int id) {
+        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(7).findElement(By.tagName("a")).click();
     }
 
     public void updateContact() {
@@ -70,6 +76,14 @@ public class ContactHelper extends BaseHelper{
         addNewContactPage();
         fillContactForm(contact);
     }
+
+    public void modify(ContactData contact) {
+        selectContactById(contact.getId());
+        initContactModificationById(contact.getId());
+        fillContactForm(contact);
+        updateContact();
+    }
+
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts=new ArrayList<ContactData>();

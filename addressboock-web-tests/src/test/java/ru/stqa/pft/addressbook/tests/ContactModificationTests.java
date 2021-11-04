@@ -31,12 +31,10 @@ public class ContactModificationTests extends TestBase{
     public void contactModificationTest(){
         Contacts before= app.getContactHelper().all();
         ContactData modifiedContact=before.iterator().next();
-        app.getContactHelper().initContactModification(modifiedContact);
-        ContactData contact=new ContactData().withId(modifiedContact.getId()).withFirstname("test").
+        ContactData contact=new ContactData().withId(modifiedContact.getId()).withFirstname("test 11").
                 withLastname("test2").withMiddlename("test1").withHome_phone("259789").
                 withMobile_phone("89654561122").withEmail("test@mail.ru");
-        app.getContactHelper().fillContactForm(contact);
-        app.getContactHelper().updateContact();
+        app.getContactHelper().modify(contact);
         app.goTo().goToHomePage();
         Contacts after= app.getContactHelper().all();
         assertEquals(after.size(), before.size());
