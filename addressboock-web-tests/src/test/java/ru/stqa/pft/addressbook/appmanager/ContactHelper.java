@@ -5,11 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class ContactHelper extends BaseHelper{
 
@@ -113,10 +111,10 @@ public class ContactHelper extends BaseHelper{
             List<WebElement> cells = element.findElements(By.tagName("td"));
             String firstname=cells.get(2).getText();
             String lastname=cells.get(1).getText();
-            String[] phones = cells.get(5).getText().split("\n");
+            String allPhones = cells.get(5).getText();
             int id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).
-                    withHome_phone(phones[0]).withMobile_phone(phones[1]).withWork_phone(phones[2]));
+                    withAllPhones(allPhones));
         }
         return contacts;
     }
@@ -132,6 +130,5 @@ public class ContactHelper extends BaseHelper{
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname)
                 .withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).withWork_phone(work).withEmail(email);
-
     }
 }

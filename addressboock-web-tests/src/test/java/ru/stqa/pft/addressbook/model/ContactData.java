@@ -11,6 +11,11 @@ public class ContactData {
     private String mobile_phone;
     private String work_phone;
     private String email;
+    private String allPhones;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
 
     public String getFirstname(){return firstname;}
     public String getLastname(){return lastname;}
@@ -58,6 +63,11 @@ public class ContactData {
 
     public ContactData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
 
