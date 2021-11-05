@@ -21,6 +21,7 @@ public class ContactHelper extends BaseHelper{
         type(By.name("home"), contactData.getHome_phone());
         type(By.name("mobile"), contactData.getMobile_phone());
         type(By.name("email"), contactData.getEmail());
+        attach(By.name("photo"), contactData.getPhoto());
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
