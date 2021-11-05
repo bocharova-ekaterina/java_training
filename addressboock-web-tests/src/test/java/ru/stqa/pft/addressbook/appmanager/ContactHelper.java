@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,9 +111,10 @@ public class ContactHelper extends BaseHelper{
             String firstname=cells.get(2).getText();
             String lastname=cells.get(1).getText();
             String allPhones = cells.get(5).getText();
+            String allEmails = cells.get(4).getText();
             int id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).
-                    withAllPhones(allPhones));
+                    withAllPhones(allPhones).withAllEmails(allEmails));
         }
         return contacts;
     }
@@ -127,8 +127,11 @@ public class ContactHelper extends BaseHelper{
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname)
-                .withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).withWork_phone(work).withEmail(email);
+                .withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).
+                        withWork_phone(work).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 }

@@ -10,20 +10,28 @@ public class ContactData {
     private String home_phone;
     private String mobile_phone;
     private String work_phone;
-    private String email;
     private String allPhones;
+    private String email;
+    private String email2;
+    private String email3;
+    private String allEmails;
+
 
     public String getAllPhones() {
         return allPhones;
     }
-
+    public String getAllEmails() {
+        return allEmails;
+    }
     public String getFirstname(){return firstname;}
     public String getLastname(){return lastname;}
     public String getMiddlename(){return middlename;}
     public String getHome_phone(){return home_phone;}
     public String getMobile_phone(){return mobile_phone;}
-    public String getWork_phone(){return mobile_phone;}
+    public String getWork_phone(){return work_phone;}
     public String getEmail(){return email;}
+    public String getEmail2(){return email2;}
+    public String getEmail3(){return email3;}
     public int getId(){return id;}
 
     public ContactData withId(int id) {
@@ -56,8 +64,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withWork_phone(String mobile_phone) {
-        this.mobile_phone = mobile_phone;
+    public ContactData withWork_phone(String work_phone) {
+        this.work_phone = work_phone;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 
@@ -66,8 +84,14 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withAllPhones(String allPhones) {
-        this.allPhones = allPhones;
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
         return this;
     }
 
@@ -92,4 +116,6 @@ public class ContactData {
     public int hashCode() {
         return Objects.hash(id, firstname, lastname);
     }
+
+
 }
