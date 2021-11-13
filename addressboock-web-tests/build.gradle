@@ -1,3 +1,5 @@
+import jdk.javadoc.internal.doclets.toolkit.taglets.SystemPropertyTaglet
+
 apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = "my_prog"
@@ -17,13 +19,24 @@ dependencies {
 task testGroup(type:Test){
     useTestNG{
         suites'src/test/resources/testing-groups.xml'
-
+    }
+    if (project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')){
+        systemProperty 'target', "${target}"
     }
 }
 
 task testContacts(type:Test){
     useTestNG{
         suites'src/test/resources/testing-contacts.xml'
-
+    }
+    if (project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')){
+        systemProperty 'target', "${target}"
     }
 }
+
