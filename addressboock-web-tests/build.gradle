@@ -13,3 +13,17 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream-distribution:1.4.18'
     implementation 'com.google.code.gson:gson:2.8.9'
 }
+
+task testGroup(type:Test){
+    useTestNG{
+        suites'src/test/resources/testing-groups.xml'
+
+    }
+}
+
+task testContacts(type:Test){
+    useTestNG{
+        suites'src/test/resources/testing-contacts.xml'
+
+    }
+}
