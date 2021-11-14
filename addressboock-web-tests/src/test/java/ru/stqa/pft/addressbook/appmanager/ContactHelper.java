@@ -21,7 +21,9 @@ public class ContactHelper extends BaseHelper{
         type(By.name("home"), contactData.getHome_phone());
         type(By.name("mobile"), contactData.getMobile_phone());
         type(By.name("email"), contactData.getEmail());
+        type(By.name("address"), contactData.getAddress());
         attach(By.name("photo"), contactData.getPhoto());
+
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
@@ -113,9 +115,10 @@ public class ContactHelper extends BaseHelper{
             String lastname=cells.get(1).getText();
             String allPhones = cells.get(5).getText();
             String allEmails = cells.get(4).getText();
+            String address =cells.get(3).getText();
             int id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).
-                    withAllPhones(allPhones).withAllEmails(allEmails));
+                    withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
         }
         return contacts;
     }
@@ -130,9 +133,10 @@ public class ContactHelper extends BaseHelper{
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address =wd.findElement(By.name("address")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname)
                 .withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).
-                        withWork_phone(work).withEmail(email).withEmail2(email2).withEmail3(email3);
+                        withWork_phone(work).withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
     }
 }

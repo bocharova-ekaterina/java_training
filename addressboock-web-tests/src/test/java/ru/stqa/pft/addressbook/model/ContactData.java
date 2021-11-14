@@ -28,6 +28,7 @@ public class ContactData {
     private String email3;
     private String allEmails;
     private File photo;
+    private String address;
 
     public String getAllPhones() {
         return allPhones;
@@ -46,6 +47,7 @@ public class ContactData {
     public String getEmail3(){return email3;}
     public int getId(){return id;}
     public File getPhoto() { return photo;}
+    public String getAddress() { return address; }
 
     public ContactData withId(int id) {
         this.id = id;
@@ -110,6 +112,11 @@ public class ContactData {
 
     public ContactData withPhoto(File photo) {
         this.photo = photo;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
         return this;
     }
 
