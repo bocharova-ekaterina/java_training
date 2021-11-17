@@ -52,7 +52,7 @@ public class ContactData {
     private String allEmails;
     @Column(name="photo")
     @Type(type="text")
-    private String photo;
+    private String photoPath;
     @Column(name="address")
     @Type(type="text")
     private String address;
@@ -73,7 +73,15 @@ public class ContactData {
     public String getEmail2(){return email2;}
     public String getEmail3(){return email3;}
     public int getId(){return id;}
-    public File getPhoto() { return new File (photo);}
+   // public File getPhoto() { return new File (photo);}
+   public File getPhoto() {
+       if (photoPath  == null) {
+           return null;
+       } else {
+           File photo = new File(photoPath);
+           return photo;
+       }
+   }
     public String getAddress() { return address; }
 
     public ContactData withId(int id) {
@@ -137,8 +145,8 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withPhoto(File photo) {
-        this.photo = photo.getPath();
+    public ContactData withPhoto(File photoPath) {
+        this.photoPath = photoPath.getPath();
         return this;
     }
 

@@ -10,9 +10,6 @@ public class NavigationHelper extends BaseHelper{
     }
 
     public void goToHomePage() {
-        //if (isElementPresent(By.id("maintable"))) {
-       //    return;
-       // }
         click(By.linkText("home page"));
     }
 
