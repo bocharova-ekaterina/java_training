@@ -1,10 +1,13 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,10 @@ public class ContactHelper extends BaseHelper{
 
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[id='"+id+"']")).click();
+    }
+
+    public void selectGroupOnContactPage(String groupName) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName);
     }
 
     public void initContactModification() {
@@ -139,4 +146,14 @@ public class ContactHelper extends BaseHelper{
                 .withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).
                         withWork_phone(work).withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
     }
+
+    public void selectGroupForContact(ContactData contact, GroupData group){
+        selectContactById(contact.getId());
+        selectGroupOnContactPage(group.getName());
+        wd.findElement(By.name("add")).click();
+
+
+    }
+
+
 }
