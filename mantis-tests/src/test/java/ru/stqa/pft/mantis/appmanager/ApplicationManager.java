@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -20,6 +21,8 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mail;
+    public ChangePasswordHelper changePassword;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser=browser;
@@ -66,6 +69,7 @@ public class ApplicationManager {
         return mail;
     }
 
+
     public WebDriver getDriver() {
         if(wd==null){
             if (browser.equals(BrowserType.FIREFOX)){
@@ -80,6 +84,14 @@ public class ApplicationManager {
             System.setProperty("webdriver.gecko.driver","C:\\Windows\\System32\\geckodriver.exe");
         }
         return wd;
-
     }
+
+    public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper(this);
+        }
+        return dbHelper;
+    }
+
+
 }
