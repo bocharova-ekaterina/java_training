@@ -1,5 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
-import org.openqa.selenium.By;
+import ru.stqa.pft.mantis.model.UserData;
+import static java.lang.String.format;
+import static org.openqa.selenium.By.cssSelector;
 
 public class ChangePasswordHelper extends BaseHelper{
 
@@ -7,23 +9,22 @@ public class ChangePasswordHelper extends BaseHelper{
         super(app);
     }
 
-    public void openUsersPage() {
-        wd.get("http://localhost/mantisbt-1.3.20/my_view_page.php");
-        wd.findElement(By.linkText("управление")).click();
-        wd.findElement(By.linkText("Управление пользователями")).click();
+    public void changePassword(UserData user){
+        openUsersPage();
+        selectUserForChange(user.getId());
+        resetPassword();
     }
 
-    private void selectUserForChange(){
-        wd.findElement(By.id("username")).click();
-        wd.findElement(By.id("username")).clear();
-        wd.findElement(By.id("username")).sendKeys("test");
-        click(By.cssSelector("input[type='submit']"));
+    public void openUsersPage() {
+        wd.get(app.getProperty("web.baseURL") + "/manage_user_page.php");
+    }
+
+    private void selectUserForChange(int id){
+        click(cssSelector(format("a[href='manage_user_edit_page.php?user_id=%s']", id)));
     }
 
     public void resetPassword() {
-        selectUserForChange();
-        wd.findElement(By.xpath("//input[@value='Сбросить пароль']")).click();
-
+        click(cssSelector("form[id='manage-user-reset-form']>fieldset>span>input[type='submit']"));
     }
 
 }

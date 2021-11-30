@@ -9,15 +9,15 @@ import javax.persistence.Table;
 public class UserData {
     @Id
     @Column(name = "id")
-    private int id;
+    private int id=Integer.MAX_VALUE;
 
     @Column(name = "username")
     private String userName;
+    @Column(name = "password")
     private String password;
 
     @Column(name = "email")
     private String email;
-
 
     public int getId() {
         return id;
