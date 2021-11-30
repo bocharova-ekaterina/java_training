@@ -28,7 +28,7 @@ public class RemoveContactFromGroup extends TestBase{
             app.goTo().returnToGroupPage();
         }
     }
-    
+
     @Test
     public void testRemoveContactFromGroup(){
         GroupData group = selectGroup();
