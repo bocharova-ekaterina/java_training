@@ -147,13 +147,24 @@ public class ContactHelper extends BaseHelper{
                         withWork_phone(work).withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
     }
 
-    public void selectGroupForContact(ContactData contact, GroupData group){
-        selectContactById(contact.getId());
-        selectGroupOnContactPage(group.getName());
-        wd.findElement(By.name("add")).click();
-
-
+    private void selectGroupForContact(GroupData group){
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
     }
 
+    public void addToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroupForContact(group);
+        wd.findElement(By.name("add")).click();
+    }
 
+    public void removeFromGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        click(By.name("remove"));
+    }
+
+    public void groupSelect(int id) {
+        click(By.cssSelector("select[name=\"group\"] > option[value='" + id + "']"));
+    }
 }
+
+

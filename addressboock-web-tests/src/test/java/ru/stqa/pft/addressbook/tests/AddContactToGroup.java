@@ -9,6 +9,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class AddContactToGroup extends TestBase {
     @BeforeMethod
@@ -29,15 +30,20 @@ public class AddContactToGroup extends TestBase {
 
     @Test
     public void testAddContactToGroup() {
-        //Contacts before= app.db().contactsInGroup(group);
-        // ContactData contact= app.getContactHelper().selectContactById();
-        //  app.getContactHelper().selectGroupForContact(contact, group);
-        app.goTo().goToHomePage();
-        //Contacts after=app.db().contactsInGroup(group);
-        // assertThat(after.size(), equalTo(before.size() +1));
-        //assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
-    }
+        ContactData contact = selectContact();
+        GroupData group = selectGroup(contact);
+        Groups contactGroupsBefore = app.db().contactById(contact.getId()).getGroups();
+        Contacts groupContactsBefore = app.db().contactsInGroup(group.getId());
+        app.goTo().OpenIndexPage();
+        app.getContactHelper().addToGroup(contact, group);
+        Groups contactGroupsAfter = app.db().contactById(contact.getId()).getGroups();
+        Contacts groupContactsAfter = app.db().contactsInGroup(group.getId());
 
+        assertEquals(contactGroupsAfter.size(), contactGroupsBefore.size() + 1);
+        assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.withAdded(app.db().groupById(group.getId()))));
+        assertEquals(groupContactsAfter.size(), groupContactsBefore.size() + 1);
+        assertThat(groupContactsAfter, equalTo(groupContactsBefore.withAdded(app.db().contactById(contact.getId()))));
+    }
 
     private ContactData selectContact() {
         Contacts contacts = app.db().contacts();
@@ -47,6 +53,23 @@ public class AddContactToGroup extends TestBase {
                 return contact;
             }
         }
-        return null;
+        app.getContactHelper().addNewContactPage();
+        app.getContactHelper().createContact(new ContactData().withFirstname("test")
+                .withLastname("test1").withAddress("test address")
+                .withHome_phone("89654561122").withMobile_phone("89654561122").withWork_phone("89654561122")
+                .withEmail("test1@gmail.com").withEmail2("test2@gmail.com").withEmail3("test3@gmail.com"));
+        Contacts contactsWithAded = app.db().contacts();
+
+        return app.db().contactById(contactsWithAded.stream().mapToInt((c) -> c.getId()).max().getAsInt());
     }
+
+    private GroupData selectGroup(ContactData contact) {
+        Groups allGroups = app.db().groups();
+        Groups contactGroups = app.db().contactById(contact.getId()).getGroups();
+        for (GroupData group : contactGroups) {
+            allGroups.remove(group);
+        }
+        return allGroups.iterator().next();
+    }
+
 }
