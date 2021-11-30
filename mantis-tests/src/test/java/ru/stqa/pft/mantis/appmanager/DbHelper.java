@@ -16,11 +16,8 @@ public class DbHelper {
 
     public DbHelper(ApplicationManager app) {
         this.app = app;
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-
     }
 
     public Users users() {
