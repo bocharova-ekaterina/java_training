@@ -13,7 +13,7 @@
             <class name="ru.stqa.pft.addressbook.tests.RemoveContactFromGroup" />
             <class name="ru.stqa.pft.addressbook.tests.ContactInfoTests" />
             <class name="ru.stqa.pft.addressbook.tests.DBConnectionTest" />
-            <class name="ru.stqa.pft.addressbook.tests.HbConnectionTest" />
+            <class name="ru.stqa.pft.addressbook.tests.DBConnectionTest" />
         </classes>
     </test>
 </suite>
